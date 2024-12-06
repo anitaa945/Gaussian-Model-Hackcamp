@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Gaussian Splatting (Multiple Images)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="upload-section">
+        <h1>3D Gaussian Splatting</h1>
+        <input type="file" id="image-input" accept="image/*" multiple>
+        <p>Upload multiple images to create a more accurate 3D Gaussian splatting effect.</p>
+    </div>
+    <div id="canvas-container"></div>
+
+    <!-- Three.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
