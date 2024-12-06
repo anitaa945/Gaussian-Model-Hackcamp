@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Processor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>3D Model Processor</h1>
+        <p>Upload your image or video to generate a 3D model</p>
+    </header>
+
+    <main>
+        <section class="upload-section">
+            <h2>Upload Your File</h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" id="file-upload" accept="image/*,video/*" required>
+                <button type="submit">Upload and Process</button>
+            </form>
+        </section>
+
+        <section class="display-section">
+            <h2>3D Model Display</h2>
+            <div id="model-display">
+                <p>No model loaded yet.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>3D Model Processor © 2024 | Powered by Gaussian Splatting</p>
+    </footer>
+</body>
+</html>
