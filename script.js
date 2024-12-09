@@ -1,117 +1,102 @@
-// Initialization
-const container = document.getElementById('canvas-container');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-
-renderer.setSize(window.innerWidth, window.innerHeight);
-container.appendChild(renderer.domElement);
-
-// Gaussian Splatting Parameters
-const particleCountPerImage = 5000;
-let pointsArray = [];
-
-// Function to create Gaussian splatting from a single image
-function createGaussianSplatting(image) {
-    const textureLoader = new THREE.TextureLoader();
-    const texture = textureLoader.load(image);
-
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCountPerImage * 3);
-    const colors = new Float32Array(particleCountPerImage * 3);
-
-    for (let i = 0; i < particleCountPerImage; i++) {
-        // Random positions around the origin
-        const x = (Math.random() - 0.5) * 5;
-        const y = (Math.random() - 0.5) * 5;
-        const z = (Math.random() - 0.5) * 5;
-
-        positions[i * 3] = x;
-        positions[i * 3 + 1] = y;
-        positions[i * 3 + 2] = z;
-
-        // Random color (Gaussian-like effect)
-        const color = Math.random();
-        colors[i * 3] = color;
-        colors[i * 3 + 1] = color * 0.8;
-        colors[i * 3 + 2] = color * 0.6;
+﻿/* script.js */
+function generate3DModel() {
+    const fileInput = document.getElementById("imageInput").files[0];
+    if (!fileInput) {
+        alert("Please upload an image to generate a 3D model.");
+        return;
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    // Hide input elements and show back button
+    document.getElementById("imageInput").style.display = "none";
+    document.querySelector("button[onclick='generate3DModel()']").style.display = "none";
+    document.getElementById("backButton").style.display = "block";
 
-    const material = new THREE.PointsMaterial({
-        size: 0.05,
-        map: texture,
-        transparent: true,
-        depthWrite: false,
-        vertexColors: true,
-        blending: THREE.AdditiveBlending
-    });
+    // Switch to full screen when the model is generated
+    const container = document.getElementById("container");
+    if (container.requestFullscreen) {
+        container.requestFullscreen();
+    } else if (container.mozRequestFullScreen) { // Firefox
+        container.mozRequestFullScreen();
+    } else if (container.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        container.webkitRequestFullscreen();
+    } else if (container.msRequestFullscreen) { // IE/Edge
+        container.msRequestFullscreen();
+    }
 
-    const points = new THREE.Points(geometry, material);
-    pointsArray.push(points);
-    scene.add(points);
-}
+    const modelViewer = document.getElementById("modelViewer");
+    modelViewer.innerHTML = ""; // Clear previous model
 
-// Add Interactivity
-camera.position.z = 5;
-let isDragging = false;
-let previousMousePosition = { x: 0, y: 0 };
-
-document.addEventListener('mousedown', () => {
-    isDragging = true;
-});
-document.addEventListener('mouseup', () => {
-    isDragging = false;
-});
-document.addEventListener('mousemove', (event) => {
-    if (!isDragging) return;
-
-    const deltaX = event.clientX - previousMousePosition.x;
-    const deltaY = event.clientY - previousMousePosition.y;
-
-    pointsArray.forEach((points) => {
-        points.rotation.y += deltaX * 0.005;
-        points.rotation.x += deltaY * 0.005;
-    });
-
-    previousMousePosition = { x: event.clientX, y: event.clientY };
-});
-
-// Handle File Upload
-document.getElementById('image-input').addEventListener('change', (event) => {
-    const files = event.target.files;
-    if (!files.length) return;
-
-    // Clear existing points from the scene
-    pointsArray.forEach((points) => scene.remove(points));
-    pointsArray = [];
-
-    Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            createGaussianSplatting(e.target.result);
-        };
-        reader.readAsDataURL(file);
-    });
-});
-
-// Animation Loop
-function animate() {
-    requestAnimationFrame(animate);
-
-    pointsArray.forEach((points) => {
-        points.rotation.y += 0.001;
-    });
-
-    renderer.render(scene, camera);
-}
-animate();
-
-// Handle Resizing
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    modelViewer.appendChild(renderer.domElement);
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const textureLoader = new THREE.TextureLoader();
+        textureLoader.load(event.target.result, function (texture) {
+            const geometry = new THREE.PlaneGeometry(5, 5);
+            const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+            const plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+
+            camera.position.z = 5;
+            // Controls to move around the 3D model
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableZoom = true;
+            controls.enablePan = true;
+            controls.enableRotate = true;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
+
+            animate();
+        }, undefined, function (err) {
+            alert("Error loading texture. Please try again with a different image.");
+        });
+    };
+    reader.readAsDataURL(fileInput);
+}
+
+function goBackToMainPage() {
+    // Show input elements and hide back button
+    document.getElementById("imageInput").style.display = "block";
+    document.querySelector("button[onclick='generate3DModel()']").style.display = "block";
+    document.getElementById("backButton").style.display = "none";
+
+    // Clear the 3D model viewer
+    const modelViewer = document.getElementById("modelViewer");
+    modelViewer.innerHTML = "";
+}
+// Assuming we have generated a point cloud from the input image
+const pointCloudGeometry = new THREE.BufferGeometry();
+const pointsMaterial = new THREE.ShaderMaterial({
+    vertexShader: `
+        attribute float size;
+        void main() {
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_PointSize = size * (300.0 / -mvPosition.z);
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    `,
+    fragmentShader: `
+        uniform vec3 color;
+        void main() {
+            // Gaussian falloff function
+            float distanceToCenter = length(gl_PointCoord - vec2(0.5));
+            if (distanceToCenter > 0.5) discard;
+            float alpha = exp(-distanceToCenter * distanceToCenter * 10.0);
+            gl_FragColor = vec4(color, alpha);
+        }
+    `,
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    depthTest: false,
 });
+
+// Example to set up the point cloud using Three.js
+const pointCloud = new THREE.Points(pointCloudGeometry, pointsMaterial);
+scene.add(pointCloud);
