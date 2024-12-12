@@ -2,14 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>gsplat.js - Viewer Demo</title>
+    <title>3D Model Viewer - Gaussian Splatting</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <img src="header-image.jpg" alt="Header Logo" class="header-logo">
+            <h1 class="header-title">3D Viewer Demo</h1>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-container">
+        <h2>Gaussian Splatting Visualization</h2>
         <canvas id="canvas"></canvas>
-        <script src="script2.js" type="module"></script>
-    </div>
+        <div class="controls">
+            <a href="index.html" class="button">Back to Main Screen</a>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>Powered by <strong>Gaussian Splatting</strong> | Designed by Team 16</p>
+            <p>Contact us: <a href="mailto:team16@example.com">team16@example.com</a></p>
+        </div>
+    </footer>
+
+    <script src="script2.js" type="module"></script>
 </body>
 </html>

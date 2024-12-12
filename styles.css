@@ -1,54 +1,101 @@
-﻿html, body {
+﻿/* General Styling */
+html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #e3f2fd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f8fc;
+    color: #333;
 }
 
+/* Header Styling */
+.header {
+    background-color: #0d47a1;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.header-logo {
+    width: 50px;
+    vertical-align: middle;
+}
+
+.header-title {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 24px;
+}
+
+/* Main Container */
 .container {
-    width: 80%;
-    max-width: 900px;
+    max-width: 800px;
+    margin: 40px auto;
     text-align: center;
     background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-h1 {
-    color: #0d47a1;
+/* Intro Text */
+.intro-text {
+    font-size: 18px;
     margin-bottom: 20px;
+    color: #555;
 }
 
+/* 3D Model Snapshot */
 #modelSnapshot {
     width: 100%;
-    max-height: 300px;
-    object-fit: cover;
+    max-width: 600px;
     margin: 20px 0;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #64b5f6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-    button:hover {
-        background-color: #42a5f5;
-    }
-
-canvas {
-    width: 100%;
-    height: 500px;
     border-radius: 10px;
-    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.button-container {
+    margin-top: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 0 10px;
+    background-color: #42a5f5;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.button:hover {
+    background-color: #1e88e5;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Footer Styling */
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    padding: 15px;
+    background-color: #0d47a1;
+    color: white;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #ffccbc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
