@@ -1,93 +1,105 @@
-﻿/* General Styling */
-html, body {
+﻿/* General Styles */
+body {
     margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f8fc;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f8fc;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     color: #333;
 }
 
-/* Header Styling */
+/* Header Section */
 .header {
     background-color: #0d47a1;
-    padding: 20px;
-    text-align: center;
     color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    height: 60px; /* Adjusted height for a sleek look */
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .header-logo {
-    width: 50px;
-    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
 }
 
 .header-title {
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 24px;
-}
-
-/* Main Container */
-.container {
-    max-width: 800px;
-    margin: 40px auto;
-    text-align: center;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Intro Text */
-.intro-text {
     font-size: 18px;
-    margin-bottom: 20px;
-    color: #555;
+    font-weight: bold;
+    margin: 0;
 }
 
-/* 3D Model Snapshot */
-#modelSnapshot {
-    width: 100%;
-    max-width: 600px;
-    margin: 20px 0;
+/* Main Content Section */
+.main-container {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 100%; /* Ensure it doesn’t overflow */
+}
+
+canvas {
+    width: 80%;
+    max-width: 800px; /* Restrict max width for large screens */
+    height: 400px;
+    border: 2px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
 }
 
-/* Buttons */
-.button-container {
-    margin-top: 20px;
-}
-
+/* Button Styles */
 .button {
     display: inline-block;
-    padding: 12px 24px;
-    margin: 0 10px;
+    margin-top: 20px;
+    padding: 10px 20px; /* Reduced padding for better proportions */
     background-color: #42a5f5;
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px; /* Adjusted font size */
     font-weight: bold;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
 }
 
 .button:hover {
     background-color: #1e88e5;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Footer Styling */
+/* Footer Section */
 .footer {
-    margin-top: 40px;
-    text-align: center;
-    padding: 15px;
     background-color: #0d47a1;
     color: white;
-    font-size: 14px;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 12px; /* Smaller text for better aesthetics */
+    width: 100%;
+    box-sizing: border-box;
+    height: 50px; /* Adjusted height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.footer-container {
+    text-align: center;
+    flex: 1;
 }
 
 .footer a {
@@ -98,4 +110,52 @@ html, body {
 
 .footer a:hover {
     text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 16px; /* Adjusted font size for smaller screens */
+    }
+
+    canvas {
+        width: 90%;
+        height: 300px;
+    }
+
+    .button {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+
+    .footer {
+        font-size: 10px;
+        height: auto; /* Adjust to fit content on smaller screens */
+    }
+
+    .header {
+        height: auto;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .header-title {
+        font-size: 14px;
+    }
+
+    canvas {
+        width: 100%;
+        height: 250px;
+    }
+
+    .button {
+        font-size: 10px;
+        padding: 6px 12px;
+    }
 }
