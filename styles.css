@@ -125,17 +125,17 @@ p {
     margin: 20px auto;
 }
 
-/* Canvas Styling */
+
 #canvas {
-    width: 80%; 
-    height: auto; 
-    max-width: 1000px;
+    display: block;
+    margin: 0 auto;
     border: 2px solid #ccc;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
     background-color: #f9f9f9;
 }
 
-/* Responsive Design */
+
+
 @media (max-width: 768px) {
     .header-title {
         font-size: 24px;

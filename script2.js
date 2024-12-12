@@ -1,13 +1,44 @@
 ﻿import * as SPLAT from "https://cdn.jsdelivr.net/npm/gsplat@latest";
+
 const canvas = document.getElementById("canvas");
 const renderer = new SPLAT.WebGLRenderer(canvas);
-const scene = new SPLAT.Scene(); const camera = new SPLAT.Camera();
+const scene = new SPLAT.Scene();
+const camera = new SPLAT.Camera();
 const controls = new SPLAT.OrbitControls(camera, canvas);
-async function main()
-{
+
+async function main() {
+
     const url = "https://huggingface.co/datasets/anita945/newModel/resolve/main/robot.splat";
-    await SPLAT.Loader.LoadAsync(url, scene, null); const handleResize = () => { renderer.setSize(window.innerWidth, window.innerHeight); };
-    const frame = () => { controls.update(); renderer.render(scene, camera); requestAnimationFrame(frame); };
-    handleResize(); window.addEventListener("resize", handleResize);
+    await SPLAT.Loader.LoadAsync(url, scene, null);
+
+
+    const handleResize = () => {
+    
+        const width = window.innerWidth * 0.7;
+        const height = window.innerHeight * 0.5; 
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        canvas.width = width * window.devicePixelRatio; 
+        canvas.height = height * window.devicePixelRatio;
+
+    
+        renderer.setSize(width, height);
+    };
+
+
+    const frame = () => {
+        controls.update(); 
+        renderer.render(scene, camera); 
+        requestAnimationFrame(frame); 
+    };
+
+ 
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+
     requestAnimationFrame(frame);
-} main();
+}
+
+
+main();
